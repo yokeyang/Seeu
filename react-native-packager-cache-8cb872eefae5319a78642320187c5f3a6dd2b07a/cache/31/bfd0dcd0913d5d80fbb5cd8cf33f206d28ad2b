@@ -1,0 +1,232 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class,
+    _temp,
+    _jsxFileName = '/home/yoke/seeu/node_modules/react-native-textinput-effects/lib/Fumi.js';
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactNative = require('react-native');
+
+var _BaseInput2 = require('./BaseInput');
+
+var _BaseInput3 = _interopRequireDefault(_BaseInput2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PADDING = 16;
+var ICON_WIDTH = 40;
+
+var Fumi = (_temp = _class = function (_BaseInput) {
+  _inherits(Fumi, _BaseInput);
+
+  function Fumi() {
+    _classCallCheck(this, Fumi);
+
+    return _possibleConstructorReturn(this, (Fumi.__proto__ || Object.getPrototypeOf(Fumi)).apply(this, arguments));
+  }
+
+  _createClass(Fumi, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          iconClass = _props.iconClass,
+          iconColor = _props.iconColor,
+          iconSize = _props.iconSize,
+          passiveIconColor = _props.passiveIconColor,
+          iconName = _props.iconName,
+          label = _props.label,
+          containerStyle = _props.style,
+          inputStyle = _props.inputStyle,
+          inputHeight = _props.height,
+          labelStyle = _props.labelStyle;
+      var _state = this.state,
+          focusedAnim = _state.focusedAnim,
+          value = _state.value;
+
+      var AnimatedIcon = _reactNative.Animated.createAnimatedComponent(iconClass);
+      var ANIM_PATH = PADDING + inputHeight;
+      var NEGATIVE_ANIM_PATH = ANIM_PATH * -1;
+
+      return _react2.default.createElement(
+        _reactNative.View,
+        {
+          style: [styles.container, containerStyle],
+          onLayout: this._onLayout,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 69
+          }
+        },
+        _react2.default.createElement(
+          _reactNative.TouchableWithoutFeedback,
+          { onPress: this.focus, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 73
+            }
+          },
+          _react2.default.createElement(AnimatedIcon, {
+            name: iconName,
+            color: iconColor,
+            size: iconSize,
+            style: {
+              position: 'absolute',
+              left: PADDING,
+              bottom: focusedAnim.interpolate({
+                inputRange: [0, 0.5, 0.51, 0.7, 1],
+                outputRange: [24, ANIM_PATH, NEGATIVE_ANIM_PATH, NEGATIVE_ANIM_PATH, 24]
+              }),
+              color: focusedAnim.interpolate({
+                inputRange: [0, 0.5, 1],
+                outputRange: [passiveIconColor, iconColor, iconColor]
+              })
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 74
+            }
+          })
+        ),
+        _react2.default.createElement(_reactNative.View, {
+          style: [styles.separator, {
+            height: inputHeight,
+            left: ICON_WIDTH + 8
+          }],
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 98
+          }
+        }),
+        _react2.default.createElement(
+          _reactNative.TouchableWithoutFeedback,
+          { onPress: this.focus, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 107
+            }
+          },
+          _react2.default.createElement(
+            _reactNative.Animated.View,
+            {
+              style: {
+                position: 'absolute',
+                left: ICON_WIDTH + PADDING,
+                height: inputHeight,
+                top: focusedAnim.interpolate({
+                  inputRange: [0, 0.5, 0.51, 0.7, 1],
+                  outputRange: [24, ANIM_PATH, NEGATIVE_ANIM_PATH, NEGATIVE_ANIM_PATH, PADDING / 2]
+                })
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 108
+              }
+            },
+            _react2.default.createElement(
+              _reactNative.Animated.Text,
+              {
+                style: [styles.label, {
+                  fontSize: focusedAnim.interpolate({
+                    inputRange: [0, 0.7, 0.71, 1],
+                    outputRange: [16, 16, 12, 12]
+                  }),
+                  color: focusedAnim.interpolate({
+                    inputRange: [0, 0.7],
+                    outputRange: ['#696969', '#a3a3a3']
+                  })
+                }, labelStyle],
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 125
+                }
+              },
+              label
+            )
+          )
+        ),
+        _react2.default.createElement(_reactNative.TextInput, _extends({
+          ref: 'input'
+        }, this.props, {
+          style: [styles.textInput, {
+            marginLeft: ICON_WIDTH + PADDING,
+            color: iconColor
+          }, inputStyle],
+          value: value,
+          onBlur: this._onBlur,
+          onFocus: this._onFocus,
+          onChange: this._onChange,
+          underlineColorAndroid: 'transparent',
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 145
+          }
+        }))
+      );
+    }
+  }]);
+
+  return Fumi;
+}(_BaseInput3.default), _class.propTypes = {
+  iconClass: _propTypes2.default.func.isRequired,
+
+  iconName: _propTypes2.default.string.isRequired,
+
+  iconColor: _propTypes2.default.string,
+
+  iconSize: _propTypes2.default.number,
+
+  passiveIconColor: _propTypes2.default.string,
+  height: _propTypes2.default.number
+}, _class.defaultProps = {
+  height: 48,
+  iconColor: '#00aeef',
+  iconSize: 20,
+  passiveIconColor: '#a3a3a3',
+  animationDuration: 300
+}, _temp);
+exports.default = Fumi;
+
+
+var styles = _reactNative.StyleSheet.create({
+  container: {
+    overflow: 'hidden',
+    paddingTop: 16,
+    backgroundColor: 'white'
+  },
+  label: {
+    fontSize: 18,
+    fontFamily: 'Arial',
+    fontWeight: 'bold'
+  },
+  textInput: {
+    flex: 1,
+    color: 'black',
+    fontSize: 18,
+    padding: 7,
+    paddingLeft: 0
+  },
+  separator: {
+    position: 'absolute',
+    width: 1,
+    backgroundColor: '#f0f0f0',
+    top: 8
+  }
+});

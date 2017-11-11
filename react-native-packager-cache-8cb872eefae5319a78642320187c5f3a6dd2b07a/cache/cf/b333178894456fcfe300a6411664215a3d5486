@@ -1,0 +1,171 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class, _temp;
+
+var _react = require('react');
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactNative = require('react-native');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BaseInput = (_temp = _class = function (_Component) {
+  _inherits(BaseInput, _Component);
+
+  function BaseInput(props, context) {
+    _classCallCheck(this, BaseInput);
+
+    var _this = _possibleConstructorReturn(this, (BaseInput.__proto__ || Object.getPrototypeOf(BaseInput)).call(this, props, context));
+
+    _this._onLayout = _this._onLayout.bind(_this);
+    _this._onChange = _this._onChange.bind(_this);
+    _this._onBlur = _this._onBlur.bind(_this);
+    _this._onFocus = _this._onFocus.bind(_this);
+    _this.focus = _this.focus.bind(_this);
+
+    var value = props.value || props.defaultValue;
+
+    _this.state = {
+      value: value,
+      focusedAnim: new _reactNative.Animated.Value(value ? 1 : 0)
+    };
+    return _this;
+  }
+
+  _createClass(BaseInput, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(newProps) {
+      var newValue = newProps.value;
+      if (newProps.hasOwnProperty('value') && newValue !== this.state.value) {
+        this.setState({
+          value: newValue
+        });
+
+        var isFocused = this.refs.input.isFocused();
+        if (!isFocused) {
+          var isActive = Boolean(newValue);
+          if (isActive !== this.isActive) {
+            this._toggle(isActive);
+          }
+        }
+      }
+    }
+  }, {
+    key: '_onLayout',
+    value: function _onLayout(event) {
+      this.setState({
+        width: event.nativeEvent.layout.width
+      });
+    }
+  }, {
+    key: '_onChange',
+    value: function _onChange(event) {
+      this.setState({
+        value: event.nativeEvent.text
+      });
+
+      var onChange = this.props.onChange;
+      if (onChange) {
+        onChange(event);
+      }
+    }
+  }, {
+    key: '_onBlur',
+    value: function _onBlur(event) {
+      if (!this.state.value) {
+        this._toggle(false);
+      }
+
+      var onBlur = this.props.onBlur;
+      if (onBlur) {
+        onBlur(event);
+      }
+    }
+  }, {
+    key: '_onFocus',
+    value: function _onFocus(event) {
+      this._toggle(true);
+
+      var onFocus = this.props.onFocus;
+      if (onFocus) {
+        onFocus(event);
+      }
+    }
+  }, {
+    key: '_toggle',
+    value: function _toggle(isActive) {
+      var _props = this.props,
+          animationDuration = _props.animationDuration,
+          easing = _props.easing,
+          useNativeDriver = _props.useNativeDriver;
+
+      this.isActive = isActive;
+      _reactNative.Animated.timing(this.state.focusedAnim, {
+        toValue: isActive ? 1 : 0,
+        duration: animationDuration,
+        easing: easing,
+        useNativeDriver: useNativeDriver
+      }).start();
+    }
+  }, {
+    key: 'inputRef',
+    value: function inputRef() {
+      return this.refs.input;
+    }
+  }, {
+    key: 'focus',
+    value: function focus() {
+      if (this.props.editable !== false) {
+        this.inputRef().focus();
+      }
+    }
+  }, {
+    key: 'blur',
+    value: function blur() {
+      this.inputRef().blur();
+    }
+  }, {
+    key: 'isFocused',
+    value: function isFocused() {
+      return this.inputRef().isFocused();
+    }
+  }, {
+    key: 'clear',
+    value: function clear() {
+      this.inputRef().clear();
+    }
+  }]);
+
+  return BaseInput;
+}(_react.Component), _class.propTypes = {
+  label: _propTypes2.default.string,
+  value: _propTypes2.default.string,
+  defaultValue: _propTypes2.default.string,
+  style: _reactNative.ViewPropTypes ? _reactNative.ViewPropTypes.style : _reactNative.View.propTypes.style,
+  inputStyle: _reactNative.Text.propTypes.style,
+  labelStyle: _reactNative.Text.propTypes.style,
+  easing: _propTypes2.default.func,
+  animationDuration: _propTypes2.default.number,
+  useNativeDriver: _propTypes2.default.bool,
+
+  editable: _propTypes2.default.bool,
+
+  onBlur: _propTypes2.default.func,
+  onFocus: _propTypes2.default.func,
+  onChange: _propTypes2.default.func
+}, _temp);
+exports.default = BaseInput;
